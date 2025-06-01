@@ -1,0 +1,9 @@
+.agent {
+	fill: black;
+}
+
+@media (prefers-color-scheme: dark) {
+	.agent {
+		fill: white;
+	}
+}
