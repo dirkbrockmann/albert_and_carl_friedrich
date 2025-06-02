@@ -1,14 +1,14 @@
 {
-  "name": "@explorables/explorable_template",
-  "title": "Explorable Title",
-  "subtitle": "Explorable Subtitle",
-  "description": "This is a template for making a complexity explorable. The template can be used to create a new complexity explorable. This template implements the Vicsek Model.",
+  "name": "@explorables/albert_and_carl_friedrich",
+  "title": "Albert & Carl Friedrich",
+  "subtitle": "Random Walks & Diffusion - A geometric explanation of the central limit theorem.",
+  "description": "This explorable illustrates two dimensional random walks and the central limit theorem. Although random walks may differ on a small scale, as time progress and they all looks the same from a distance.",
   "author": "Dirk Brockmann (https://synosy.github.io)",
   "version": "2.0.0",
   "license": "CC-BY-4.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dirkbrockmann/explorable_template.git"
+    "url": "git+https://github.com/dirkbrockmann/albert_and_carl_friedrich.git"
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",

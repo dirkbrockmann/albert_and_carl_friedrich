@@ -4,10 +4,10 @@ import './tailwind.css';
 
 import defaultConfig from "./container_config.js";
 import setup_container from "./setup_container.js";
+import setup_legend from "./legend.js";
 import setup_interactions from "./setup_interactions.js";
-import setup_controls from "./controls.js";
+import setup_controls,{ go, setup as setup_all } from "./controls.js";
 import { initialize as setup_simulation } from "./simulation.js";
-import { go, setup as setup_all, reset as reset_all } from "./controls.js";
 import meta from 'virtual:meta';
 
 function load(containerId, config = defaultConfig) {
@@ -19,6 +19,7 @@ function load(containerId, config = defaultConfig) {
 
   // Initialize everything
   setup_controls(controls, grid);
+  setup_legend(controls, grid);
   setup_interactions(display, controls, config);
   setup_simulation(display, config);
 
@@ -33,7 +34,6 @@ function load(containerId, config = defaultConfig) {
       if (go.value() === 1) {
         go.press(controls);
       }
-      reset_all.press(controls);
       setup_all.press(controls);
     },
     config,

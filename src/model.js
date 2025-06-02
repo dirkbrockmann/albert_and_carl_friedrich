@@ -2,17 +2,21 @@
 // the "math" of the explorable, the model itself, without the elements
 // of visualization which are done in viz.js
 
-import param from "./parameters.js"
-import {each,range,map,mean} from "lodash-es"
-import {rad2deg,deg2rad} from "./utils"
+import param,{random_walks as random_walk_types} from "./parameters.js"
+import {each,range,shuffle} from "lodash-es"
+import {toArray} from "./utils"
+import { lattice, triangular,gaussian, fixed_length } from "./random_walks.js";
 
-const L = param.L;
-const dt = param.dt;
+var walks;
+const max_number_of_walkers_per_type = param.number_of_walkers.choices[param.number_of_walkers.choices.length-1];
+const number_of_types = toArray(random_walk_types).length;
+const stepper = [
+	lattice,
+	fixed_length,
+	gaussian,
+	triangular
+]
 
-// typically objects needed for the explorable
-// are defined here
-
-var agents = [];
 
 // the initialization function, this is bundled in simulation.js with the initialization of
 // the visualization and effectively executed in index.js when the whole explorable is loaded
@@ -21,18 +25,18 @@ const initialize = () => {
 
 	// set/reset timer
 	param.timer={}; param.tick=0;
+	walks = [];
 
-	// make agents
-
-	const N = param.number_of_particles.choices[param.number_of_particles.widget.value()];
+	each(range(number_of_types),ty=>{
+		each(range(max_number_of_walkers_per_type),i=>{
+			walks.push({ix:i,type:ty,tr:[{x:0,y:0}]})
+			})
+	})
 	
-	agents = map(range(N), i => { return {
-				index:i, 
-				x:L*Math.random(), 
-				y:L*Math.random(),
-				theta: 2*Math.PI*Math.random(),
-			} 
-	});
+	walks = shuffle(walks)
+	
+	
+	// make agents
 	
 };
 
@@ -42,34 +46,13 @@ const initialize = () => {
 
 const go  = () => {
 	
-	param.tick++;
 	
-	each(agents,a=>{
-		
-		var dx = dt*param.speed.widget.value()*Math.cos(a.theta);
-		var dy = dt*param.speed.widget.value()*Math.sin(a.theta);
-		
-		const x_new = a.x + dx;
-		const y_new = a.y + dy;
-		
-		if (x_new < 0) {dx+=L};
-		if (y_new < 0) {dy+=L};
-		if (x_new > L) {dx-=L};
-		if (y_new > L) {dy-=L};  
-		
-		a.x += dx;
-		a.y += dy;
-		
-		var neighbors = agents.filter(d =>  (d.x-a.x)**2 + (d.y-a.y)**2 <= param.interaction_radius.widget.value()**2 )
-		
-		var mx = mean(map(neighbors,x=> Math.cos(deg2rad(x.theta))));
-		var my = mean(map(neighbors,x=> Math.sin(deg2rad(x.theta))));	
-		
-		a.theta = rad2deg(Math.atan2(my,mx))
-		
-		a.theta += deg2rad(param.wiggle.widget.value())*(Math.random()-0.5)
-		
+	each(walks,w=>{
+		w.tr.push(stepper[w.type](w.tr[param.tick],param.sigma));
 	})
+
+	param.tick++;
+	return param.tick>param.T_max
 }
 
 // the update function is usually not required for running the explorable. Sometimes
@@ -78,10 +61,9 @@ const go  = () => {
 
 const update = () => {
 	
-	each(agents,x => {x.active = x.index < param.number_of_particles.widget.value() ? true : false})
 
 }
 
 // the three functions initialize, go and update are exported, also all variables
 // that are required for the visualization
-export {agents,initialize,go,update}
+export {walks,initialize,go,update}

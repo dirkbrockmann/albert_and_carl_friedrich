@@ -7,49 +7,75 @@
 
 import * as d3 from "d3"
 import param from "./parameters.js"
-import {agents} from "./model.js"
-import styles from "./styles.module.css"
+import {walks} from "./model.js"
+import {filter,each,range} from "lodash-es"
+import cfg from "./config.js"
+import {rw_toggles} from "./controls.js"
 
-const L = param.L;
-const X = d3.scaleLinear().domain([0,L]);
-const Y = d3.scaleLinear().domain([0,L]);
+const X = d3.scaleLinear()
+const Y = d3.scaleLinear()
+var line = d3.line().x(d=>X(d.x)).y(d=>Y(d.y));
+var C = d3.scaleOrdinal().domain(range(4)).range(cfg.simulation.path_color);
 
-// the initialization function, this is bundled in simulation.js with the initialization of
-// the model and effectively executed in index.js when the whole explorable is loaded
-// typically here all the elements in the SVG or CANVAS element are set.
+var ctx,W,H;
+
+
+const draw_path = (walks) => {
+
+	each(walks, w => {
+		ctx.beginPath();		
+  	  	line(w.tr);
+  	  	ctx.lineWidth = cfg.simulation.path_width;
+		ctx.strokeStyle = C(w.type);
+  	  	ctx.stroke();
+		ctx.closePath();
+	})
+}
+
+const draw_positions = (walks) => {
+	
+	each(walks, a => {
+	  ctx.beginPath();
+	  let pos = a.tr[a.tr.length-1];
+	  ctx.arc(X(pos.x),Y(pos.y),cfg.simulation.pos_size,0,2*Math.PI);
+	  ctx.fillStyle = C(a.type)
+	  ctx.fill();
+	})
+}
 
 const initialize = (display,config) => {
+	
+	W = config.display_size.width;
+	H = config.display_size.height;
+	
+	X.range([0,W]).domain(param.x_range);
+	Y.range([0,H]).domain(param.y_range);
+	
 
-	const W = config.display_size.width;
-	const H = config.display_size.height;
+	ctx = display.node().getContext('2d');
+	line.context(ctx)	
+	ctx.clearRect(0,0,W,H);
 	
-	X.range([0,W]);
-	Y.range([0,H]);
+	const shown_walks = filter(walks,w => {
+		return w.ix < param.number_of_walkers.choices[param.number_of_walkers.widget.value()] && rw_toggles[w.type].value()
+	});	
+	if (!param.hide_path.widget.value()) {draw_path(shown_walks)}
+	if (!param.hide_positions.widget.value()) {draw_positions(shown_walks)}
 		
-	display.selectAll("#origin").remove();
-	
-	const origin = display.append("g").attr("id","origin")
-	
-	origin.selectAll(null).data(agents).enter().append("circle")
-		.attr("class",styles.agent)
-		.attr("cx",d=>X(d.x))
-		.attr("cy",d=>Y(d.y))
-		.attr("r",X(param.agentsize/2))
-		.style("fill", d => param.color_by_heading.widget.value() ? d3.interpolateSinebow(d.theta/2/Math.PI)  : null)
-	
 };
 
-// the go function, this is bundled in simulation.js with the go function of
-// the model, typically this is the iteration function of the model that
-// is run in the explorable. It contains the code that updates the parts of the display
-// panel as a function of the model quantities.
 
 const go = (display,config) => {
-	
-	display.selectAll("."+styles.agent)
-		.attr("cx",d=>X(d.x))
-		.attr("cy",d=>Y(d.y))
-		.style("fill", d => param.color_by_heading.widget.value() ? d3.interpolateSinebow(d.theta/2/Math.PI)  : null)
+	ctx.clearRect(0,0,W,H);
+	if(param.tick>param.R0*param.R0){
+		X.domain([-Math.sqrt(param.tick)*param.L0,Math.sqrt(param.tick)*param.L0])
+		Y.domain([-Math.sqrt(param.tick)*param.L0,Math.sqrt(param.tick)*param.L0])
+	}
+	const shown_walks = filter(walks,w => {
+		return w.ix < param.number_of_walkers.choices[param.number_of_walkers.widget.value()] && rw_toggles[w.type].value()
+	});	
+	if (!param.hide_path.widget.value()) {draw_path(shown_walks)}
+	if (!param.hide_positions.widget.value()) {draw_positions(shown_walks)}
 	
 }
 
@@ -57,12 +83,7 @@ const go = (display,config) => {
 // it makes sense to have it, e.g. to update the visualization, if a parameter is changed,
 // e.g. a radio button is pressed, when the system is not running, e.g. when it is paused.
 
-const update = (display,config) => {
-	
-	display.selectAll("."+styles.node)
-		.style("fill", d => param.color_by_heading.widget.value() ? d3.interpolateSinebow(d.theta/2/Math.PI)  : null)
-	
-}
+const update = go;
 
 
 export {initialize,go,update}

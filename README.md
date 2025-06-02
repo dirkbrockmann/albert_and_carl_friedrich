@@ -2,20 +2,20 @@
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
 
-# Explorable Title
+# Albert & Carl Friedrich
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
 
-This is a template for making a complexity explorable. The template can be used to create a new complexity explorable. This template implements the Vicsek Model.
+This explorable illustrates two dimensional random walks and the central limit theorem. Although random walks may differ on a small scale, as time progress and they all looks the same from a distance.
 
 The explorable is part of the [**Complexity Exporables Collection**](https://www.complexity-explorables.org). For more information about the system and its behavior consult the explorable
-> [**“Explorable Title” - Explorable Subtitle**](https://www.complexity-explorables.org/explorables/explorable-template)
+> [**“Albert & Carl Friedrich” - Random Walks & Diffusion - A geometric explanation of the central limit theorem.**](https://www.complexity-explorables.org/explorables/albert-and-carl-friedrich)
 
 ## Usage & Installation
 
 ### Just running the explorable
 
-If you just want to run the explorable you can [**Click here.**](https://raw.githack.com/dirkbrockmann/explorable_template/main/dist/index.html)
+If you just want to run the explorable you can [**Click here.**](https://raw.githack.com/dirkbrockmann/albert_and_carl_friedrich/main/dist/index.html)
  
 
 ### Running a local copy
@@ -24,8 +24,8 @@ If you want to run a local copy without having to rely on the nasty internet, th
 is to install it via `npm`:
 
 ```shell
-npm install @explorables/explorable_template
-open node_modules/@explorables/explorable_template/dist/index.html 
+npm install @explorables/albert_and_carl_friedrich
+open node_modules/@explorables/albert_and_carl_friedrich/dist/index.html 
 ```
 
 ### Embedding the explorable in your site
@@ -43,7 +43,7 @@ like so:
 <html>
 	<head>
 		...
-		<script src="https://cdn.jsdelivr.net/npm/@explorables/explorable_template/dist/index.umd.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@explorables/albert_and_carl_friedrich/dist/index.umd.js"></script>
 		...
 	</head>
 		...
@@ -54,13 +54,13 @@ like so:
 	</body>
 		...
 	<script type="text/javascript">
-		const explorable_instance = explorable_template.load("explorable_container")
+		const explorable_instance = albert_and_carl_friedrich.load("explorable_container")
 	</script>
 		...
 </html>
 ```
 
-The header `<script>` tag loads the bundle, the `<div>` in the document is the container in which the explorable gets anchored when the function `explorable_template("explorable_container")` gets executed at the bottom. This function needs the `<div>` container `id` as an argument. The function returns an instance of the explorable and writes it to `explorable_instance`. That variable contains functions like `halt()`, `reset()` and variables `meta` and `config`.
+The header `<script>` tag loads the bundle, the `<div>` in the document is the container in which the explorable gets anchored when the function `albert_and_carl_friedrich("explorable_container")` gets executed at the bottom. This function needs the `<div>` container `id` as an argument. The function returns an instance of the explorable and writes it to `explorable_instance`. That variable contains functions like `halt()`, `reset()` and variables `meta` and `config`.
 	
 If you want to make use of ES modules instead of UMD, here's a way that will work on modern (ES support) and legacy browsers (UMD only).
 
@@ -70,10 +70,10 @@ If you want to make use of ES modules instead of UMD, here's a way that will wor
 	<head>
 		...
 	    <script type="module">
-	  	      import load from 'https://cdn.jsdelivr.net/npm/@explorables/explorable_template/dist/index.es.js';
-	  	      const explorable_template = load("explorable_container");
+	  	      import load from 'https://cdn.jsdelivr.net/npm/@explorables/albert_and_carl_friedrich/dist/index.es.js';
+	  	      const albert_and_carl_friedrich = load("explorable_container");
 	    </script>
-	    <script nomodule src="https://cdn.jsdelivr.net/npm/@explorables/explorable_template/dist/index.umd.js"></script>	  
+	    <script nomodule src="https://cdn.jsdelivr.net/npm/@explorables/albert_and_carl_friedrich/dist/index.umd.js"></script>	  
 		...
 	</head>
 		...
@@ -84,7 +84,7 @@ If you want to make use of ES modules instead of UMD, here's a way that will wor
 	</body>
 		...
 	<script nomodule type="text/javascript">
-		const explorable_instance = explorable_template.load("explorable_container")
+		const explorable_instance = albert_and_carl_friedrich.load("explorable_container")
 	</script>
 		...
 </html>
@@ -99,13 +99,13 @@ If you want to modify or edit the explorable to make your own version:
 Clone repository:
 
 ```shell
-git clone https://github.com/dirkbrockmann/explorable_template.git
+git clone https://github.com/dirkbrockmann/albert_and_carl_friedrich.git
 ```
 
 
 Go to the directory, install, build and show using `npm`:
 
-1. `cd explorable_template`
+1. `cd albert_and_carl_friedrich`
 2. `npm install`
 3. `npm run build`
 3. `npm run preview`

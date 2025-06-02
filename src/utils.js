@@ -3,7 +3,10 @@
 import * as d3 from "d3"
 import {map, replace, capitalize, each, has, isBoolean, pickBy, toPairs } from "lodash-es"
 
-const add_id_label = (x) => map(toPairs(x), d => {d[1]["id"]=d[0]; d[1]["label"]=replace(capitalize(d[0]),/_/g," ")} );
+const add_id_label = (x) => map(toPairs(x), d => {		
+		d[1]["id"]=d[0]; 
+		d[1]["label"] = d[1].label || replace(capitalize(d[0]),/_/g," ");
+	});
 
 const toArray = (x) => map(toPairs(x),d=>d[1]);
 
@@ -22,4 +25,6 @@ const dist = (a,b) => {
 	return Math.sqrt(dx*dx + dy*dy);
 }
 
-export {toArray,add_id_label,add_widget,get_variables,get_booleans,get_choices,deg2rad,rad2deg,dist}
+const random_normal = d3.randomNormal(0,1);
+
+export {random_normal,toArray,add_id_label,add_widget,get_variables,get_booleans,get_choices,deg2rad,rad2deg,dist}
