@@ -25,15 +25,16 @@ const parameters = {
 }
 
 const random_walks = {
-	gaussian: {
-		default: true
-	},
-	ring:{
-		default:true
-	},
 	n_w_s_o:{
 		default: true,
 		label:"N-W-S-O",
+	},
+	
+	ring:{
+		default:true
+	},
+	gaussian: {
+		default: true
 	},
 	triangular: {
 		default: true

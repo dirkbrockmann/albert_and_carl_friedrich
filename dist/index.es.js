@@ -6852,15 +6852,15 @@ const $ = {
     default: !1
   }
 }, Qt = {
-  gaussian: {
-    default: !0
+  n_w_s_o: {
+    default: !0,
+    label: "N-W-S-O"
   },
   ring: {
     default: !0
   },
-  n_w_s_o: {
-    default: !0,
-    label: "N-W-S-O"
+  gaussian: {
+    default: !0
   },
   triangular: {
     default: !0
