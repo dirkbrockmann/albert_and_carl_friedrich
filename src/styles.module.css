@@ -1,3 +1,14 @@
+.displayPanel {
+  /* Styles for the display panel */
+  display: block;
+}
+
+.controlPanel {
+  /* Styles for the control panel */
+  display: block;
+}
+
+
 .inset {
     
 }
@@ -35,6 +46,7 @@
     fill: url(#gaussian_gradient_dark); /* Reference the dark mode gradient */
   }
 }
+
 .pdf_triangular{
     opacity:1;
     stroke:none;

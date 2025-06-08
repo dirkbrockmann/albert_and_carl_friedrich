@@ -1,5 +1,6 @@
 import * as d3 from "d3"
 import * as widgets from "d3-widgets"
+import styles from "./styles.module.css"
 
 export default (container_id,config)=>{
 
@@ -12,9 +13,12 @@ export default (container_id,config)=>{
 
 	const container = d3.select("#"+container_id).classed(container_id+" "+config.container_class,true)
 
+	const displayId = container_id + "_display";
+	const controlsId = container_id + "_controls";
+
 	const display = container.append("div")
-		.attr("id","display")
-		.attr("class","display-panel")
+		.attr("id", displayId)
+		.attr("class", styles.displayPanel)
 		.classed(config.display_class,true)
 		.classed(config.debug_lattice,config.debug)
 		.append(config.display_type)
@@ -25,14 +29,14 @@ export default (container_id,config)=>{
 
 
 	const controls = container.append("div")
-		.attr("id","controls")
-		.attr("class","d3-widgets control-panel")
+		.attr("id", controlsId)
+		.attr("class", "d3-widgets "+styles.controlPanel)
 		.classed(config.controls_class,true)
 		.classed(config.debug_lattice,config.debug)
 		.append("svg")
 		.attr("viewBox", "0 0 "+config.controls_size.width+" "+config.controls_size.height)
 		.style("width","100%")
-		.style("height","100%")		
+		.style("height","100%")			
 
 	if (config.debug){		
 		controls.selectAll(null).data(grid.points).enter().append("circle").attr("r",2)
