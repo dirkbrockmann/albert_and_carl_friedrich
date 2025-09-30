@@ -10,14 +10,28 @@
     "type": "git",
     "url": "git+https://github.com/dirkbrockmann/albert_and_carl_friedrich.git"
   },
+  "type": "module",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
-  "files": [
-    "dist/"
-  ],
+  "browser": "./dist/index.umd.js",
   "exports": {
-    "import": "./dist/index.es.js",
-    "require": "./dist/index.umd.js"
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "default": "./dist/index.umd.js"
+    }
+  },
+  "unpkg": "dist/index.umd.js",
+  "jsdelivr": "dist/index.umd.js",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18",
+    "npm": ">=9"
   },
   "scripts": {
     "dev": "vite",

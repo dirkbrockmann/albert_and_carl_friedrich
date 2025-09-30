@@ -8,7 +8,7 @@
 
 This explorable illustrates two dimensional random walks and the central limit theorem. Although random walks may differ on a small scale, as time progress and they all looks the same from a distance.
 
-The explorable is part of the [**Complexity Exporables Collection**](https://www.complexity-explorables.org). For more information about the system and its behavior consult the explorable
+The explorable is part of the [**Complexity Explorables Collection**](https://www.complexity-explorables.org). For more information about the system and its behavior consult the explorable
 > [**“Albert & Carl Friedrich” - Random Walks & Diffusion - A geometric explanation of the central limit theorem.**](https://www.complexity-explorables.org/explorables/albert-and-carl-friedrich)
 
 ## Usage & Installation
@@ -24,8 +24,11 @@ If you want to run a local copy without having to rely on the nasty internet, th
 is to install it via `npm`:
 
 ```shell
+mkdir albert_and_carl_friedrich
+cd albert_and_carl_friedrich
+npm init -y
 npm install @explorables/albert_and_carl_friedrich
-open node_modules/@explorables/albert_and_carl_friedrich/dist/index.html 
+npx http-server node_modules/@explorables/albert_and_carl_friedrich/dist/ 
 ```
 
 ### Embedding the explorable in your site
