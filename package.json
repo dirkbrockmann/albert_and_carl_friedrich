@@ -4,7 +4,7 @@
   "subtitle": "Random Walks & Diffusion - A geometric explanation of the central limit theorem.",
   "description": "This explorable illustrates two dimensional random walks and the central limit theorem. Although random walks may differ on a small scale, as time progress and they all looks the same from a distance.",
   "author": "Dirk Brockmann (https://synosy.github.io)",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "license": "CC-BY-4.0",
   "repository": {
     "type": "git",
